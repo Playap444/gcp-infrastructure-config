@@ -1,13 +1,13 @@
 ### VPC ###
 resource "google_compute_network" "main_vpc_network" {
-  project                 = google_project.default_project.name
+  project                 = var.project_default
   name                    = "vpc-main-${var.environment}"
   auto_create_subnetworks = false
   mtu                     = 1460
 }
 ### SUBNETS ###
 resource "google_compute_subnetwork" "subnet_001" {
-  project = google_project.default_project.name
+  project       = var.project_default
   name          = "snet-${var.environment}-001"
   ip_cidr_range = var.subnet001_cidr_range
   region        = var.location
@@ -19,7 +19,7 @@ resource "google_compute_subnetwork" "subnet_001" {
 }
 # backend subnet
 resource "google_compute_subnetwork" "backend" {
-  project = google_project.default_project.name
+  project       = var.project_default
   name          = "snet-backend-${var.environment}"
   provider      = google-beta
   ip_cidr_range = var.snet_backend_ip_cidr_range
@@ -28,7 +28,7 @@ resource "google_compute_subnetwork" "backend" {
 }
 # frontend subnet
 resource "google_compute_subnetwork" "frontend" {
-  project = google_project.default_project.name
+  project       = var.project_default
   name          = "snet-frontend-${var.environment}"
   provider      = google-beta
   ip_cidr_range = var.snet_frontend_ip_cidr_range
@@ -37,15 +37,15 @@ resource "google_compute_subnetwork" "frontend" {
 }
 # health check
 resource "google_compute_health_check" "default" {
-  project = google_project.default_project.name
-  name = "hc-default-test-${var.environment}"
+  project = var.project_default
+  name    = "hc-default-test-${var.environment}"
   http_health_check {
     port_specification = "USE_SERVING_PORT"
   }
 }
 # allow access from health check ranges
 resource "google_compute_firewall" "default" {
-  project = google_project.default_project.name
+  project       = var.project_default
   name          = "allow-hc-default-test-${var.environment}"
   provider      = google-beta
   direction     = "INGRESS"

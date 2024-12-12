@@ -1,6 +1,7 @@
 resource "google_storage_bucket" "main-storage" {
+  project       = var.project_default
   name          = "test-store-${var.environment}"
-  location      = "us-central-1"
+  location      = var.location
   force_destroy = true
 
   uniform_bucket_level_access = true

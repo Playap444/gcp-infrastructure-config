@@ -8,6 +8,9 @@ variable "location" {
 variable "product" {
   type = string
 }
+variable "project_default" {
+  type = string
+}
 
 ### NETWORK ###
 variable "subnet001_cidr_range" {
