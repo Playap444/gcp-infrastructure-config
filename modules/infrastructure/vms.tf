@@ -1,9 +1,11 @@
 resource "google_service_account" "default" {
+  project = google_project.default_project.name
   account_id   = "sa-test-${var.environment}"
   display_name = "Custom SA for VM Instance"
 }
 
 resource "google_compute_instance" "default" {
+  project = google_project.default_project.name
   name         = "vm-test-${var.environment}"
   machine_type = "n2-standard-2"
   zone         = "us-central1-a"
