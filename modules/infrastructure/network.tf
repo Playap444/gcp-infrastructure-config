@@ -1,8 +1,9 @@
 ### VPC ###
 resource "google_compute_network" "main_vpc_network" {
-  project                 = var.project_default
-  name                    = "vpc-main-${var.environment}"
-  auto_create_subnetworks = false
+  project = var.project_default
+  # name                    = "vpc-main-${var.environment}"
+  name                    = "acg-network1"
+  auto_create_subnetworks = true
   mtu                     = 1460
 }
 ### SUBNETS ###
