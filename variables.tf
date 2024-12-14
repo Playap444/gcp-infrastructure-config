@@ -22,3 +22,6 @@ variable "snet_frontend_ip_cidr_range" {
 variable "snet_backend_ip_cidr_range" {
   type = string
 }
+variable "snet_gke_ip_cidr_range" {
+  type = string
+}

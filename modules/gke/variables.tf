@@ -8,20 +8,14 @@ variable "location" {
 variable "product" {
   type = string
 }
-variable "project_default" {
+variable "project_id" {
   type = string
 }
 
 ### NETWORK ###
-variable "subnet001_cidr_range" {
+variable "main_vpc_network" {
   type = string
 }
-variable "snet_frontend_ip_cidr_range" {
-  type = string
-}
-variable "snet_backend_ip_cidr_range" {
-  type = string
-}
-variable "snet_gke_ip_cidr_range" {
+variable "gke_subnetwork" {
   type = string
 }

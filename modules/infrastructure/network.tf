@@ -36,6 +36,15 @@ resource "google_compute_subnetwork" "frontend" {
   region        = var.location
   network       = google_compute_network.main_vpc_network.id
 }
+# gke subnet
+resource "google_compute_subnetwork" "gke" {
+  project       = var.project_default
+  name          = "snet-gke-${var.environment}"
+  provider      = google-beta
+  ip_cidr_range = var.snet_gke_ip_cidr_range
+  region        = var.location
+  network       = google_compute_network.main_vpc_network.id
+}
 # health check
 resource "google_compute_health_check" "default" {
   project = var.project_default
