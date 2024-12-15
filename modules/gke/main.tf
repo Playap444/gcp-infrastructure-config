@@ -5,10 +5,11 @@
 
 resource "google_container_cluster" "primary" {
   project    = var.project_id
-  name       = "test-cluster"
+  name       = "cluster-${var.product}-${var.environment}"
   location   = var.location
   network    = var.main_vpc_network
   subnetwork = var.gke_subnetwork
+  deletion_protection = false
   cluster_autoscaling {
     enabled = true
     resource_limits {
@@ -39,7 +40,7 @@ resource "google_container_cluster" "primary" {
 
 resource "google_container_node_pool" "primary_node1" {
   project = var.project_id
-  name    = "my-node-pool"
+  name    = "node-pool-${var.product}-${var.environment}"
   location   = var.location
   cluster        = google_container_cluster.primary.name
   node_count     = 1

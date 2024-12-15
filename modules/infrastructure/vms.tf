@@ -6,11 +6,11 @@ resource "google_service_account" "default" {
 
 resource "google_compute_instance" "default" {
   project      = var.project_default
-  name         = "vm-test-${var.environment}"
-  machine_type = "n2-standard-2"
+  name         = "vm-${var.product}-${var.environment}"
+  machine_type = "e2-medium"
   zone         = "us-central1-a"
 
-  tags = ["${var.environment}"]
+  tags = ["${var.environment}", "http-server"]
 
   boot_disk {
     initialize_params {
@@ -22,9 +22,9 @@ resource "google_compute_instance" "default" {
   }
 
   // Local SSD disk
-  scratch_disk {
-    interface = "NVME"
-  }
+  # scratch_disk {
+  #   interface = "NVME"
+  # }
 
   network_interface {
     network = "default"
@@ -38,7 +38,7 @@ resource "google_compute_instance" "default" {
   #   foo = "bar"
   # }
 
-  metadata_startup_script = "echo hi > /test.txt"
+  metadata_startup_script = file("${path.module}/compute-startup.sh")
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
