@@ -35,9 +35,9 @@ resource "google_storage_bucket" "main-storage" {
 }
 
 resource "google_storage_bucket_object" "test_picture" {
-  name   = "butterfly01"
-  source = "/images/nature/garden-tiger-moth.jpg"
-  bucket = "image-store"
+  name   = "test-object-picture"
+  source = "../../img/test_obj.jpg"
+  bucket = google_storage_bucket.main-storage.name
 }
 
 resource "google_storage_bucket_access_control" "public_rule" {
