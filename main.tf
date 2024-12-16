@@ -13,17 +13,15 @@ module "main_infra" {
 
 }
 
-# module "identity" {
-#   source = "./modules/identity"
+module "storage" {
+  source = "./modules/storage"
 
-# }
+  environment     = var.environment
+  product         = var.product
+  project_default = data.google_project.default.name
+}
 
-# module "app_storage" {
-#   source = "./modules/storage"
-
-# }
-
-module "gke_test" {
+module "gke" {
   source = "./modules/gke"
 
   environment = var.environment
@@ -34,3 +32,21 @@ module "gke_test" {
   main_vpc_network = module.main_infra.main_vpc_network
   gke_subnetwork   = module.main_infra.gke_subnetwork
 }
+
+module "db" {
+  source = "./modules/database"
+
+  environment = var.environment
+  product     = var.product
+  project_id  = var.project_id
+}
+
+# module "identity" {
+#   source = "./modules/identity"
+
+# }
+
+# module "app_storage" {
+#   source = "./modules/storage"
+
+# }

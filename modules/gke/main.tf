@@ -4,11 +4,11 @@
 # }
 
 resource "google_container_cluster" "primary" {
-  project    = var.project_id
-  name       = "cluster-${var.product}-${var.environment}"
-  location   = var.location
-  network    = var.main_vpc_network
-  subnetwork = var.gke_subnetwork
+  project             = var.project_id
+  name                = "cluster-${var.product}-${var.environment}"
+  location            = var.location
+  network             = var.main_vpc_network
+  subnetwork          = var.gke_subnetwork
   deletion_protection = false
   cluster_autoscaling {
     enabled = true
@@ -39,9 +39,9 @@ resource "google_container_cluster" "primary" {
 }
 
 resource "google_container_node_pool" "primary_node1" {
-  project = var.project_id
-  name    = "node-pool-${var.product}-${var.environment}"
-  location   = var.location
+  project        = var.project_id
+  name           = "node-pool-${var.product}-${var.environment}"
+  location       = var.location
   cluster        = google_container_cluster.primary.name
   node_count     = 1
   node_locations = ["us-central1-c", "us-central1-b"]
