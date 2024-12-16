@@ -22,7 +22,6 @@ resource "google_storage_bucket" "main-storage" {
     }
     action {
       type = "Delete"
-      storage_class = "ARCHIVE"
     }
   }
 
@@ -36,7 +35,7 @@ resource "google_storage_bucket" "main-storage" {
 
 resource "google_storage_bucket_object" "test_picture" {
   name   = "test-object-picture"
-  source = "../../img/test_obj.jpg"
+  source = "./img/test_obj.jpg"
   bucket = google_storage_bucket.main-storage.name
 }
 
